@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  // directUrl = env("DIRECT_URL") 
+}
+
+enum Role {
+  ADMIN
+  USER
+}
+
+model account {
+  userId              String    @id @default(uuid())
+  userName            String    @unique
+  userEmail           String
+  userPassword        String
+  createdAt           DateTime  @default(now())
+  role                Role?     @default(USER)
+  hasProfileDataSet   Boolean   @default(false)
+  userProfileImageUrl String?
+  userBirthDate       DateTime?
+}
+
+model dojo_arena {
+  dojoId                String @id @default(uuid())
+  dojo_User_creater     String
+  dojo_join_creater     String
+  dojo_topic            String
+  dojo_Background       String
+  dojo_arena_session_Id String @unique
+
+  session dojo_session @relation(fields: [dojo_arena_session_Id], references: [dojoSessionId])
+}
+
+model dojo_session {
+  dojoSessionId                String @id @default(uuid())
+  dojo_session_player          String
+  dojo_session_player_opponent String
+  dojo_session_image_scissors  String
+  dojo_session_image_rock      String
+  dojo_session_image_paper     String
+  dojo_Session_points          Int
+
+  arena dojo_arena?
+}

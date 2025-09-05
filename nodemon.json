@@ -1,0 +1,21 @@
+{
+  "watch": [
+    "*.ts",
+    "controller/**/*.ts",
+    "router/**/*.ts",
+    "libs/**/*.ts",
+    "utils/**/*.ts",
+    "config/**/*.ts",
+    "middleware/**/*.ts"
+  ],
+  "ext": "ts,js,json",
+  "ignore": [
+    "dist/**/*",
+    "node_modules/**/*",
+    "prisma/**/*"
+  ],
+  "exec": "tsx app.ts",
+  "env": {
+    "NODE_ENV": "development"
+  }
+}
